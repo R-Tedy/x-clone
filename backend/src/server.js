@@ -9,6 +9,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(clerkMiddleware());
+
 app.get("/" , (req, res) => res.send("Hello from server"));
 
 app.use((err, req, res, next) => {
@@ -20,7 +22,7 @@ const startServer = async () => {
   try {
     await connectDB();
     if (ENV.PORT !== "production") {
-      app.listen(ENV.PORT, () => console.log("Server is up an running on PORT: ", ENV.PORT));
+      app.listen(ENV.PORT, () => console.log("Server is up an running on PORT:", ENV.PORT));
     }
   } catch (error) {
     console.error("Failed to start server: ", error.message);
